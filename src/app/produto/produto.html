@@ -1,0 +1,53 @@
+<div class="container">
+    <div>
+        
+    </div>
+    <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+    <h3 class="text-center">
+        {{produto.nome}}
+    </h3> 
+<form novalidate name="formulario" class='row' ng-submit="submeter()">
+        <div class='col-md-6'>
+            <div class="form-group">
+                <label>Nome</label>
+                <input ng-model="produto.nome" name="nome" class="form-control" required ng-maxlength="20">
+                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.nome.$error.required">
+                    Nome Obrigatório
+                </span>
+                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.nome.$error.maxlength">
+                    Deve ter no máximo 20 caracteres.
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Valor</label>
+                <input ng-model="produto.valor" name="valor" class="form-control" required>
+                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.valor.$error.required">
+                    Valor Obrigatório
+                </span>
+            </div>
+            <div class="form-group">
+                <label>imagem</label>
+                <input ng-model="produto.imagem" name="imagem" class="form-control" required>
+                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.imagem.$error.required">
+                    imagem Obrigatória
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea ng-model="produto.descricao"   name="descricao" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <button type="submit" ng-disabled="formulario.$invalid" class="btn btn-primary">Salvar</button>
+            <a href="/produtos" class="btn btn-primary">Voltar</a>
+            <hr>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group text-center">
+                {{produto.nome}}
+            </div>
+            <div class='form-group'>
+                <img class="img-responsive center-block" src="{{produto.imagem}}">
+            </div>
+        </div>
+    </form>
+</div>
+    
