@@ -7,7 +7,7 @@
             <form>
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <a href="produtos/novo" class="btn btn-primary">Novo Produto</a>
+                        <a href="produto/novo" class="btn btn-primary">Novo Produto</a>
                     </span>
                     <input ng-model="filtro" ng-model-options="{debounce: 500}"
                     class="form-control" placeholder="filtrar">
@@ -25,7 +25,7 @@
                     <p>{{produto.descricao}}</p>
                     <p>{{produto.valor | currency: 'R$ '}}</p>
                     <a href="/produto/editar/{{produto._id}}" class="btn btn-primary">Editar</a>
-                    <button class="btn btn-danger">Remover</button>
+                    <button ng-click="remover(produto)" class="btn btn-danger">Remover</button>
                 </div>
             </div>
         </div>

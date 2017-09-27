@@ -6,7 +6,7 @@
       .controller('ProdutosController', ProdutosController);
   
     /** @ngInject */
-    function ProdutosController($scope, $http) {
+    function ProdutosController($scope, $http, toastr) {
         
         $scope.produtos = [];
         $scope.mensagem = '';
@@ -17,8 +17,20 @@
             $scope.produtos = produto;
         })
         .error(function(erro){
-            $scope.mensagem = 'Nenhum produto encontrado';
-        })
+            toastr.error('Nenhum produto encontrado');
+        });
+
+        $scope.remover = (function(produto){
+            $http.delete('http://localhost:8080/produto/'+produto._id)
+            .success(function(){
+                let indice = $scope.produtos.indexOf(produto);
+                $scope.produtos.splice(indice,1);
+                toastr.success('produto ' + produto.nome + ' removida com sucesso');
+            })
+            .error(function(){
+                toastr.error('nao foi possivel remover a produto');
+            })
+        });
       
     }
   })();

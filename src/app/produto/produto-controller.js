@@ -34,7 +34,7 @@
             }else{ 
                 if($scope.formulario.$valid){
                     $http.post('http://localhost:8080/produto/',$scope.produto)
-                    .success( function(response) {
+                    .success( function() {
                         $scope.produto = {};
                         toastr.success("Produto cadastrado com sucesso!");
                     })
