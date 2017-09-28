@@ -10,15 +10,18 @@
     $routeProvider
       .when('/', {
         templateUrl: 'app/produto/produtos.html',
-        controller: 'ProdutosController'
+        controller: 'ProdutosController',
+        controllerAs : 'produtos'
       })
       .when('/produto/editar/:produtoId',{
         templateUrl : 'app/produto/produto.html',
-        controller : 'ProdutoController'
+        controller : 'ProdutoController',
+        controllerAs: 'produto'
       })
       .when('/produto/novo',{
         templateUrl : 'app/produto/produto.html',
-        controller : 'ProdutoController'
+        controller : 'ProdutoController',
+        controllerAs: 'produto'
       })
       .otherwise({
         redirectTo: '/'

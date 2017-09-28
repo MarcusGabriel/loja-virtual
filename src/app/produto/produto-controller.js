@@ -7,8 +7,11 @@
   
     /** @ngInject */
     function ProdutoController($scope, $http, $routeParams, toastr, $timeout, $location) {
+        var vm = this;
+        var url = 'http://localhost:8080/produto/';
         if($routeParams.produtoId){
-            $http.get('http://localhost:8080/produto/'+ $routeParams.produtoId)
+            
+            $http.get(url+ $routeParams.produtoId)
             .success(function(produto){
                 $scope.produto = produto[0];
             })
@@ -17,14 +20,18 @@
                 $scope.mensagem = 'id não encontrado';
             });
         }
-
+        $scope.filterValue = function($event){
+            if(isNaN(String.fromCharCode($event.keyCode))){
+                $event.preventDefault();
+            }
+        };
         $scope.produto = {};
         $scope.mensagem = '';
 
         
         $scope.submeter = (function (){
             if($scope.produto._id){
-                $http.put('http://localhost:8080/produto/'+$scope.produto._id, $scope.produto)
+                $http.put(url+$scope.produto._id, $scope.produto)
                 .success( function(){
                     toastr.success("Produto atualizado com sucesso!");
                     $timeout(function() {
@@ -36,7 +43,7 @@
                 })
             }else{ 
                 if($scope.formulario.$valid){
-                    $http.post('http://localhost:8080/produto/',$scope.produto)
+                    $http.post(url,$scope.produto)
                     .success( function() {
                         // $scope.produto = {};
                         toastr.success("Produto cadastrado com sucesso!");
