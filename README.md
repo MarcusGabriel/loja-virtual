@@ -35,7 +35,8 @@ Ao invés de utilizar o GruntJS, foi utilizado o Gulp, por possuir um webpack pr
 
 ## Instalação
 
-Clone e inicie a API [Loja-Virtual-Api](https://github.com/MarcusGabriel/loja-virtual-api)
+Necessário ter a API iniciada.
+-> Siga as intruções para instalar e inicar a API[Loja-Virtual-Api](https://github.com/MarcusGabriel/loja-virtual-api) 
 
 Depois clone este repositório  [Loja Virtual](https://github.com/MarcusGabriel/loja-virtual)
 
