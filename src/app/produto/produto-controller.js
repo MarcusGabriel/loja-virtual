@@ -6,7 +6,7 @@
       .controller('ProdutoController', ProdutoController);
   
     /** @ngInject */
-    function ProdutoController($scope, $http, $routeParams, toastr) {
+    function ProdutoController($scope, $http, $routeParams, toastr, $timeout, $location) {
         if($routeParams.produtoId){
             $http.get('http://localhost:8080/produto/'+ $routeParams.produtoId)
             .success(function(produto){
@@ -27,6 +27,9 @@
                 $http.put('http://localhost:8080/produto/'+$scope.produto._id, $scope.produto)
                 .success( function(){
                     toastr.success("Produto atualizado com sucesso!");
+                    $timeout(function() {
+                        $location.path('/produto');
+                    }, 1500);
                 })
                 .error(function(){
                     toastr.error("Ocorreu um erro! Tente novamente.", "Error");
@@ -35,8 +38,12 @@
                 if($scope.formulario.$valid){
                     $http.post('http://localhost:8080/produto/',$scope.produto)
                     .success( function() {
-                        $scope.produto = {};
+                        // $scope.produto = {};
                         toastr.success("Produto cadastrado com sucesso!");
+                        $timeout(function() {
+                            $location.path('/produto');
+                        }, 1500);
+                        
                     })
                     .error(function (error)  {
                         $scope.mensagem = 'produto não cadastrada com sucesso';
