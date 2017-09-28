@@ -25,7 +25,7 @@
             .success(function(){
                 let indice = $scope.produtos.indexOf(produto);
                 $scope.produtos.splice(indice,1);
-                toastr.success('produto ' + produto.nome + ' removida com sucesso');
+                toastr.success('produto ' + produto.nome + ' removido com sucesso');
             })
             .error(function(){
                 toastr.error('nao foi possivel remover a produto');
