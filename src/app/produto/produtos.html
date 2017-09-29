@@ -17,7 +17,7 @@
     </div> <!-- fim row !-->
     <hr>
     <div class="row"> <!--| orderBy:'rank'!-->
-        <div class="col-sm-6 col-md-4 filtro" ng-repeat="produto in produtos | filter: filtro">
+        <div class="col-sm-6 col-md-4 filtro" ng-repeat="produto in produtos | filter: {nome:filtro}">
             <div class="thumbnail">
                 <img class="pull-right" ng-src="{{produto.imagem}}" alt="">
                 <div class="caption">
