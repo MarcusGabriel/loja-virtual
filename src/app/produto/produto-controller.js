@@ -9,29 +9,43 @@
     function ProdutoController($scope, $http, $routeParams, toastr, $timeout, $location) {
         var vm = this;
         var url = 'http://localhost:8080/produto/';
-        if($routeParams.produtoId){
-            
-            $http.get(url+ $routeParams.produtoId)
+        vm.produto = {};
+        console.log(vm.produtosImagem);
+        vm.init = function(){
+            vm.id = $routeParams.produtoId;
+            if(!!vm.id){
+                console.log(vm.id);
+                vm.buscarProduto(vm.id);
+            }
+            // vm.filterValue();
+        }
+
+        vm.buscarProduto = function (id){
+            $http.get(url + id)
             .success(function(produto){
-                $scope.produto = produto[0];
+                vm.produto = produto[0];
             })
             .error(function(){
-                console.log('produto não encontrada');
-                $scope.mensagem = 'id não encontrado';
+                toastr.error("Produto não encontrado");
+                $timeout(function() {
+                    $location.path('/');
+                }, 1500);
             });
         }
-        $scope.filterValue = function($event){
+
+        vm.filterValue = function($event){
             if(isNaN(String.fromCharCode($event.keyCode))){
                 $event.preventDefault();
             }
         };
-        $scope.produto = {};
-        $scope.mensagem = '';
+        vm.gerarImagem = function(){
+            console.log('teste');
+        }
 
         
-        $scope.submeter = (function (){
-            if($scope.produto._id){
-                $http.put(url+$scope.produto._id, $scope.produto)
+        vm.submeter = (function (id = null){
+            if(vm.id){
+                $http.put(url+vm.id, vm.produto)
                 .success( function(){
                     toastr.success("Produto atualizado com sucesso!");
                     $timeout(function() {
@@ -42,10 +56,9 @@
                     toastr.error("Ocorreu um erro! Tente novamente.", "Error");
                 })
             }else{ 
-                if($scope.formulario.$valid){
-                    $http.post(url,$scope.produto)
+                if(vm.formulario.$valid){
+                    $http.post(url,vm.produto)
                     .success( function() {
-                        // $scope.produto = {};
                         toastr.success("Produto cadastrado com sucesso!");
                         $timeout(function() {
                             $location.path('/produto');
@@ -53,13 +66,26 @@
                         
                     })
                     .error(function (error)  {
-                        $scope.mensagem = 'produto não cadastrada com sucesso';
-                        console.log(error);
+                        toastr.error("Erro ao cadastrar!");
                     });
                 }
             }
         });
-      
+        
+        vm.fotoAleatoria = function (produto) {
+            var nome = produto.produto.nome;
+            $http.get('https://api.gettyimages.com/v3/search/images?phrase='+nome, {
+                headers: {'Api-Key': 'bpaup4cjrzzddx6zgkmjhbc9'}
+            })
+            .success(function(retorno){
+                vm.produto.imagem = retorno.images[0].display_sizes[0].uri;
+            })
+            .error(function(error){
+                console.log(error);  
+            });
+        }
+        
+        vm.init();
     }
   })();
   

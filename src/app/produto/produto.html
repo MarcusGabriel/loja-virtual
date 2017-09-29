@@ -4,48 +4,49 @@
     </div>
     <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
     <h3 class="text-center">
-        {{produto.nome}}
+        {{produto.produto.nome}}
     </h3> 
-<form novalidate name="formulario" class='row' ng-submit="submeter()">
+<form novalidate name="produto.formulario" class='row' ng-submit="produto.submeter()">
         <div class='col-md-6'>
             <div class="form-group">
-                <label>Nome</label>
-                <input ng-model="produto.nome" name="nome" class="form-control" required ng-maxlength="20">
-                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.nome.$error.required">
-                    Nome Obrigatório
+                <label>Nome do Produto</label>
+                <input ng-model="produto.produto.nome" name="nome" ng-blur="produto.fotoAleatoria(produto)" class="form-control" required ng-maxlength="20">
+                <span class="form-control alert-danger" ng-show="produto.formulario.$submitted && produto.formulario.nome.$error.required">
+                    Nome do produto obrigatório
                 </span>
-                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.nome.$error.maxlength">
+                <span class="form-control alert-danger" ng-show="produto.formulario.$submitted && produto.formulario.nome.$error.maxlength">
                     Deve ter no máximo 20 caracteres.
                 </span>
             </div>
             <div class="form-group">
                 <label>Valor</label>
-                <input ng-model="produto.valor" name="valor" ng-keypress="filterValue($event)" class="form-control" required>
-                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.valor.$error.required">
+                <input ng-model="produto.produto.valor" name="valor" ng-keypress="produto.filterValue($event)" class="form-control" required>
+                <span class="form-control alert-danger" ng-show="produto.formulario.$submitted && produto.formulario.valor.$error.required">
                     Valor Obrigatório
                 </span>
             </div>
             <div class="form-group">
                 <label>imagem</label>
-                <input ng-model="produto.imagem" name="imagem" class="form-control" required>
-                <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.imagem.$error.required">
+                <input ng-model="produto.produto.imagem" name="imagem" class="form-control" required>
+                <span class="form-control alert-danger" ng-show="produto.formulario.$submitted && produto.formulario.imagem.$error.required">
                     imagem Obrigatória
                 </span>
             </div>
             <div class="form-group">
                 <label>Descrição</label>
-                <textarea ng-model="produto.descricao"   name="descricao" cols="30" rows="10" class="form-control"></textarea>
+                <textarea ng-model="produto.produto.descricao" name="descricao" cols="30" rows="10" class="form-control" required></textarea>
+                <span class="form-control alert-danger" ng-show="produto.formulario.$submitted && produto.formulario.descricao.$error.required"></span>
             </div>
-            <button type="submit" ng-disabled="formulario.$invalid" class="btn btn-primary">Salvar</button>
+            <button type="submit" ng-disabled="produto.formulario.$invalid" class="btn btn-primary">Salvar</button>
             <a href="/produtos" class="btn btn-primary">Voltar</a>
             <hr>
         </div>
         <div class="col-md-6">
             <div class="form-group text-center">
-                {{produto.nome}}
+                {{produto.produto.nome}}
             </div>
             <div class='form-group'>
-                <img class="img-responsive center-block" src="{{produto.imagem}}">
+                <img class="img-responsive center-block" src="{{produto.produto.imagem}}">
             </div>
         </div>
     </form>

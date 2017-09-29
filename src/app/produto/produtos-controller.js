@@ -24,7 +24,7 @@
                 toastr.error('Nenhum produto encontrado');
             });
         }
-        $scope.remover = function(produto){
+        vm.remover = function(produto){
             $http.delete(url + '/'+produto._id)
             .success(function(){
                 let indice = vm.produtos.indexOf(produto);

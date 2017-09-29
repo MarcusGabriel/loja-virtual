@@ -26,7 +26,7 @@
                     <p>{{produto.descricao}}</p>
                     <p>{{produto.valor | currency: 'R$ '}}</p>
                     <a href="/produto/editar/{{produto._id}}" class="btn btn-primary">Editar</a>
-                    <button ng-click="remover(produto)" class="btn btn-danger">Remover</button>
+                    <button ng-click="produtos.remover(produto)" class="btn btn-danger">Remover</button>
                 </div>
             </div>
         </div>
