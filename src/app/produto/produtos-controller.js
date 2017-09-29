@@ -7,35 +7,31 @@
   
     /** @ngInject */
     function ProdutosController($scope, $http, toastr) {
-        var vm = this;
-        var url = 'http://localhost:8080/produto';
-        vm.produtos = [];
-        vm.mensagem = '';
-        vm.filtro = '';
-        vm.init = function(){
-            vm.listar();
-        }
-        vm.listar = function(){
-           $http.get(url)
-            .success(function(produto){
-                vm.produtos = produto;
-            })
-            .error(function(erro){
-                toastr.error('Nenhum produto encontrado');
-            });
-        }
-        vm.remover = function(produto){
-            $http.delete(url + '/'+produto._id)
+        
+        $scope.produtos = [];
+        $scope.mensagem = '';
+        $scope.filtro = '';
+        
+        $http.get('http://localhost:8080/produto')
+        .success(function(produto){
+            $scope.produtos = produto;
+        })
+        .error(function(erro){
+            toastr.error('Nenhum produto encontrado');
+        });
+
+        $scope.remover = (function(produto){
+            $http.delete('http://localhost:8080/produto/'+produto._id)
             .success(function(){
-                let indice = vm.produtos.indexOf(produto);
-                vm.produtos.splice(indice,1);
+                let indice = $scope.produtos.indexOf(produto);
+                $scope.produtos.splice(indice,1);
                 toastr.success('produto ' + produto.nome + ' removido com sucesso');
             })
             .error(function(){
                 toastr.error('nao foi possivel remover a produto');
             })
-        };
-        vm.init();
+        });
+      
     }
   })();
   
