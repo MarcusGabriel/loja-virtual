@@ -25,33 +25,6 @@ fs.readdirSync('./gulp').filter(function(file) {
 });
 
 
-/**
- * Javascript Task
- */
-gulp.task('js', function(){
-	return gulp.src('bower_components/**/*.js')
-		.pipe(plumber())
-		.pipe(concat('main.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('assets/js/'))
-		.pipe(browserSync.reload({stream:true}));
-});
-
-
-/**
- * Rebuild Virtual & do page reload
- */
-// gulp.task('virtual-rebuild', function () {
-// 	browserSync.reload();
-// });
-
-
-/**
- * Watch JS files for changes & recompile
- */
-gulp.task('watch', function () {
-  gulp.watch('bower_components/**/*.js', ['js']);
-});
 
 /**
  *  Default task clean temporaries directories and launch the
